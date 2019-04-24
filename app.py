@@ -45,7 +45,8 @@ async def create_pokebel_messages(req: Request, resp: Response):
     if created:
         to_user.save()
 
-    message = PokebelMessage.create(from_user=from_user, to_user=to_user, content=123456)
+    message = PokebelMessage.create(from_user=from_user, to_user=to_user,
+                                    content=json['content'])
     message.save()
 
 
