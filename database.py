@@ -2,7 +2,7 @@ from peewee import *
 from playhouse.shortcuts import model_to_dict
 from enum import Enum, auto
 import datetime
-from globals import Generation
+from globals import MojiType
 
 database = SqliteDatabase('test.db')
 
@@ -12,14 +12,14 @@ class BaseModel(Model):
         database = database
 
 
-class GenerationField(Field):
+class MojiTypeField(Field):
     field_type = 'INT'
 
-    def db_value(self, value: Generation):
+    def db_value(self, value: MojiType):
         return value.value
 
     def python_value(self, value):
-        return Generation(value)
+        return MojiType(value)
 
 
 class User(BaseModel):
@@ -38,7 +38,7 @@ class KeitaiMessage(BaseModel):
     from_user = ForeignKeyField(User, backref='from_user')
     to_user = ForeignKeyField(User, backref='to_user')
     created_at = DateTimeField(default=datetime.datetime.now)
-    generation = GenerationField()
+    moji_type = MojiTypeField()
     title = TextField(null=True)
     content = TextField()
 

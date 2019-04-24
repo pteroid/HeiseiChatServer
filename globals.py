@@ -1,7 +1,6 @@
 from enum import Enum, auto
 
 
-class Generation(Enum):
-    POCKETBELL = auto()
+class MojiType(Enum):
     KAOMOJI = auto()
     EMOJI = auto()
