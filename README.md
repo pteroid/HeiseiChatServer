@@ -23,10 +23,10 @@ POST /pokebel/messages/send
 }
 ```
 
-### 受け取ったメッセージを一覧
+### 受け取ったメッセージを取得
 
 ```
-POST /pokebel/messages
+POST /pokebel/messages/received
 
 {
   "number": 00000000000
@@ -38,7 +38,7 @@ POST /pokebel/messages
 ```
 [
   {
-    "user": {
+    "from_user": {
       "id": 2,
       "number": 11111111111
     },
@@ -46,7 +46,39 @@ POST /pokebel/messages
     "created_at": "2019-04-24T18:21:19.790420"
   },
   {
-    "user": {
+    "from_user": {
+      "id": 2,
+      "number": 11111111111
+    },
+    "content": "123456",
+    "created_at": "2019-04-24T18:21:19.964525"
+  },
+```
+
+### 送ったメッセージを取得
+
+```
+POST /pokebel/messages/sent
+
+{
+  "number": 00000000000
+}
+```
+
+レスポンス
+
+```
+[
+  {
+    "to_user": {
+      "id": 2,
+      "number": 11111111111
+    },
+    "content": "123456",
+    "created_at": "2019-04-24T18:21:19.790420"
+  },
+  {
+    "to_user": {
       "id": 2,
       "number": 11111111111
     },

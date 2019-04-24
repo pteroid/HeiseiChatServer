@@ -22,24 +22,21 @@ class GenerationField(Field):
         return Generation(value)
 
 
-class PokebelUser(BaseModel):
-    number = IntegerField(unique=True)
+class User(BaseModel):
+    number = IntegerField(unique=True, null=True)
+    email = CharField(unique=True, null=True)
 
 
 class PokebelMessage(BaseModel):
-    from_user = ForeignKeyField(PokebelUser, backref='from_user')
-    to_user = ForeignKeyField(PokebelUser, backref='to_user')
+    from_user = ForeignKeyField(User, backref='from_user')
+    to_user = ForeignKeyField(User, backref='to_user')
     created_at = DateTimeField(default=datetime.datetime.now)
     content = TextField()
 
 
-class KeitaiUser(BaseModel):
-    email = CharField(unique=True)
-
-
 class KeitaiMessage(BaseModel):
-    from_user = ForeignKeyField(KeitaiUser, backref='from_user')
-    to_user = ForeignKeyField(KeitaiUser, backref='to_user')
+    from_user = ForeignKeyField(User, backref='from_user')
+    to_user = ForeignKeyField(User, backref='to_user')
     created_at = DateTimeField(default=datetime.datetime.now)
     generation = GenerationField()
     title = TextField(null=True)
@@ -48,4 +45,4 @@ class KeitaiMessage(BaseModel):
 
 def create_tables():
     with database:
-        database.create_tables([PokebelUser, PokebelMessage, KeitaiUser, KeitaiMessage])
+        database.create_tables([User, PokebelMessage, KeitaiMessage])
