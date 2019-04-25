@@ -8,6 +8,9 @@ verify_ssl = true
 [packages]
 responder = "*"
 peewee = "*"
+gensim = "*"
+mecab-python3 = "*"
+numpy = "*"
 
 [requires]
 python_version = "3.7"

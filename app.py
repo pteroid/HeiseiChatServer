@@ -2,6 +2,7 @@ import responder
 from responder import Request, Response
 from database import User, PokebelMessage, KeitaiMessage, create_tables
 from globals import MojiType
+from heisei_chat_ml import text_to_pkebell as pokebell
 
 api = responder.API(cors=True)
 
@@ -30,6 +31,18 @@ async def get_received_pokebel_messages(req: Request, resp: Response):
         "content": msg.content,
         "created_at": msg.created_at.isoformat(),
     } for msg in query]
+
+
+@api.route('/pokebel/convert')
+async def convert_text_to_pokebell_style(req: Request, resp: Response):
+    json = await req.media()
+
+    words, numbers = pokebell.text_to_pkebell(json["text"], threshold=0.5)
+
+    resp.media = {
+        "words": words,
+        "numbers": numbers,
+    }
 
 
 @api.route('/pokebel/messages/sent')
