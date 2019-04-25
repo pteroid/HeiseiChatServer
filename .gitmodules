@@ -1,0 +1,3 @@
+[submodule "heisei_chat_ml"]
+	path = heisei_chat_ml
+	url = git@github.com:KohheiAdachi/heisei_chat_ml.git
