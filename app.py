@@ -4,7 +4,11 @@ from database import User, PokebelMessage, KeitaiMessage, create_tables
 from globals import MojiType
 from heisei_chat_ml import text_to_pkebell as pokebell
 
-api = responder.API(cors=True)
+api = responder.API(cors=True, cors_params={
+    'allow_origins': ['*'],
+    'allow_methods': ['*'],
+    'allow_headers': ['*'],
+})
 
 
 @api.route('/pokebel/messages/received')
