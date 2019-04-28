@@ -2,7 +2,7 @@ import responder
 from responder import Request, Response
 from database import User, PokebelMessage, KeitaiMessage, create_tables
 from globals import MojiType
-from heisei_chat_ml import text_to_pkebell as pokebell
+# from heisei_chat_ml.heisei_chat_ml import text_to_pkebell as pokebell
 
 api = responder.API(cors=True, cors_params={
     'allow_origins': ['*'],
@@ -28,9 +28,11 @@ async def get_received_pokebel_messages(req: Request, resp: Response):
              .order_by(PokebelMessage.created_at))
 
     resp.media = [{
+        "id": msg.id,
         "from_user": {
             "id": msg.from_user.id,
             "number": msg.from_user.number,
+            "username": msg.from_user.username,
         },
         "content": msg.content,
         "created_at": msg.created_at.isoformat(),
@@ -64,9 +66,11 @@ async def get_sent_pokebel_messages(req: Request, resp: Response):
              .order_by(PokebelMessage.created_at))
 
     resp.media = [{
+        "id": msg.id,
         "to_user": {
             "id": msg.to_user.id,
             "number": msg.to_user.number,
+            "username": msg.from_user.username,
         },
         "content": msg.content,
         "created_at": msg.created_at.isoformat(),
@@ -105,9 +109,11 @@ async def get_received_keitai_messages(req: Request, resp: Response):
              .order_by(KeitaiMessage.created_at))
 
     resp.media = [{
+        "id": msg.id,
         "from_user": {
             "id": msg.from_user.id,
             "email": msg.from_user.email,
+            "username": msg.from_user.username,
         },
         "title": msg.title,
         "content": msg.content,
@@ -130,9 +136,11 @@ async def get_sent_keitai_messages(req: Request, resp: Response):
              .order_by(KeitaiMessage.created_at))
 
     resp.media = [{
+        "id": msg.id,
         "to_user": {
             "id": msg.to_user.id,
             "email": msg.to_user.email,
+            "username": msg.from_user.username,
         },
         "title": msg.title,
         "content": msg.content,

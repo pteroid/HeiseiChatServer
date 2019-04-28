@@ -25,6 +25,7 @@ class MojiTypeField(Field):
 class User(BaseModel):
     number = IntegerField(unique=True, null=True)
     email = CharField(unique=True, null=True)
+    username = CharField(unique=True, null=True)
 
 
 class PokebelMessage(BaseModel):
@@ -50,7 +51,7 @@ def create_tables():
     with database:
         database.create_tables([User, PokebelMessage, KeitaiMessage])
 
-    from_user = User.create(email="hoge@ezweb.ne.jp")
+    from_user = User.create(email="hoge@ezweb.ne.jp", username="平成太郎")
     from_user.save()
     to_user = User.create(email="fuga@docomo.ne.jp")
     to_user.save()
@@ -61,14 +62,13 @@ def create_tables():
                                    content="本文")
     message.save()
 
-    from_user = User.create(email="information@i.softban.jp")
+    from_user = User.create(email="information@i.softban.jp", username="ソフトバンク")
     from_user.save()
 
     message = KeitaiMessage.create(from_user=from_user, to_user=to_user,
                                    moji_type=MojiType.EMOJI,
                                    title="【お客さま限定】10,000円割引クーポンプレゼント",
-                                   content="""
-ガラケーをご利用中のお客さま限定で、機種変更に使えるクーポンをプレゼント🎁
+                                   content="""ガラケーをご利用中のお客さま限定で、機種変更に使えるクーポンをプレゼント🎁
 
 【特別クーポン】
 機種代金が税込10,000円割引！
@@ -85,7 +85,6 @@ http://u.softbank.jp/CsR7dVt
 ゴールデンウィークはソフトバンク取扱店へぜひお越しください
 
 
-※ 通話基本プランの2年契約／2年契約（フリープラン）またはハートフレンド割引に加入すること。学割放題との併用はできません。
-""")
+※ 通話基本プランの2年契約／2年契約（フリープラン）またはハートフレンド割引に加入すること。学割放題との併用はできません。""")
     message.save()
     print("sample messages created")
