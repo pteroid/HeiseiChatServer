@@ -25,7 +25,7 @@ class MojiTypeField(Field):
 class User(BaseModel):
     number = IntegerField(unique=True, null=True)
     email = CharField(unique=True, null=True)
-    username = CharField(unique=True, null=True)
+    username = CharField(null=True)
 
 
 class PokebelMessage(BaseModel):

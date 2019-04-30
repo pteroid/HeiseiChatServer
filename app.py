@@ -2,13 +2,59 @@ import responder
 from responder import Request, Response
 from database import User, PokebelMessage, KeitaiMessage, create_tables
 from globals import MojiType
-# from heisei_chat_ml.heisei_chat_ml import text_to_pkebell as pokebell
+from heisei_chat_ml.heisei_chat_ml import text_to_pkebell as pokebell
 
 api = responder.API(cors=True, cors_params={
     'allow_origins': ['*'],
     'allow_methods': ['*'],
     'allow_headers': ['*'],
 })
+
+
+@api.route('/login')
+async def create_new_user_account(req: Request, resp: Response):
+    json = await req.media()
+    print(json)
+
+    if not (json['number'] and json['email'] and json['username']):
+        return
+
+    user = User.get_or_none((User.number == json['number']) | (User.email == json['email']))
+
+    if not user:
+        user = User.create()
+        message = KeitaiMessage.create(from_user=User.get(User.email == "information@i.softban.jp"), to_user=user,
+                                       moji_type=MojiType.EMOJI,
+                                       title="【お客さま限定】10,000円割引クーポンプレゼント",
+                                       content="""ガラケーをご利用中のお客さま限定で、機種変更に使えるクーポンをプレゼント🎁
+
+        【特別クーポン】
+        機種代金が税込10,000円割引！
+
+        有効期限：5月31日(金)まで
+
+        対象機種など詳細はこちらをご確認ください。
+        http://u.softbank.jp/CsR7dVt
+        （アクセスには通信料がかかります）
+
+        さらに【スマホスタート割】でガラケーから対象のスマホにすると機種代金が税込10,800円割引になります。※
+
+        令和を新しいスマホで迎えよう!
+        ゴールデンウィークはソフトバンク取扱店へぜひお越しください
+
+
+        ※ 通話基本プランの2年契約／2年契約（フリープラン）またはハートフレンド割引に加入すること。学割放題との併用はできません。""")
+        message.save()
+        print("sample messages created")
+
+    user.number = json['number']
+    user.email = json['email']
+    user.username = json['username']
+
+    user.save()
+
+    print(user)
+    resp.status_code = api.status_codes.HTTP_200
 
 
 @api.route('/pokebel/messages/received')
@@ -89,8 +135,14 @@ async def create_pokebel_messages(req: Request, resp: Response):
     if created:
         to_user.save()
 
+    words, numbers = pokebell.text_to_pkebell(json["content"], threshold=0.5)
+
+    number_content = ""
+    for n in numbers:
+        number_content += n
+
     message = PokebelMessage.create(from_user=from_user, to_user=to_user,
-                                    content=json['content'])
+                                    content=number_content)
     message.save()
 
 
@@ -117,6 +169,7 @@ async def get_received_keitai_messages(req: Request, resp: Response):
         },
         "title": msg.title,
         "content": msg.content,
+        "content_dict": pokebell.text_to_dic(msg.content),
         "created_at": msg.created_at.isoformat(),
     } for msg in query]
 
@@ -144,6 +197,7 @@ async def get_sent_keitai_messages(req: Request, resp: Response):
         },
         "title": msg.title,
         "content": msg.content,
+        "content_dict": pokebell.text_to_dic(msg.content),
         "created_at": msg.created_at.isoformat(),
     } for msg in query]
 
@@ -152,9 +206,13 @@ async def get_sent_keitai_messages(req: Request, resp: Response):
 async def create_keitai_messages(req: Request, resp: Response):
     json = await req.media()
 
+    print(json)
+
     from_user, created = User.get_or_create(email=json['from_email'])
     if created:
+        print("from user created")
         from_user.save()
+        print("to user created")
     to_user, created = User.get_or_create(email=json['to_email'])
     if created:
         to_user.save()

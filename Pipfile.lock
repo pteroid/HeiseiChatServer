@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "2c4b70b241c0a83e1360668004aa044fa7ff1f5aa8b92f5a27d046ef2eb8961a"
+            "sha256": "7ba6e86054592fd9fbf0c4e95bc253127f7775573f5b50a14d83d4bfc0b248dc"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -66,23 +66,17 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:5e5805992e873e5687b5ef3b4c56c386ccb4df1c3364f8b8601d289e2f275be1",
-                "sha256:95bb6e9ec31237e5eaa99c5c74dd91b5a4352566df93e857138c124a3024727a"
+                "sha256:882cc4869b47b51dae4b4a900769e72171ff00e0b6bca644b2d7a7ad7378f324",
+                "sha256:cd503a7e7a04f1c14d2801f9727159dfa88c393b4004e98940fa4aa205d920c8"
             ],
-            "version": "==1.9.135"
+            "version": "==1.9.137"
         },
         "botocore": {
             "hashes": [
-                "sha256:1a7d6f98420874e472d397ca6ee1ab7e6087ba501997d6295ab411d9a0004b4e",
-                "sha256:5a677bfe972cb258678a23a5e9b8321b0277b44933c4f0c1ea4883a5a12c09ec"
+                "sha256:0d95794f6b1239c75e2c5f966221bcd4b68020fddb5676f757531eedbb612ed8",
+                "sha256:3213cf48cf2ceee10fc3b93221f2cd1c38521cca7584f547d5c086213cc60f35"
             ],
-            "version": "==1.12.135"
-        },
-        "bz2file": {
-            "hashes": [
-                "sha256:64c1f811e31556ba9931953c8ec7b397488726c63e09a4c67004f43bdd28da88"
-            ],
-            "version": "==0.98"
+            "version": "==1.12.137"
         },
         "certifi": {
             "hashes": [
@@ -118,6 +112,14 @@
                 "sha256:7a4bd47eaf6596e1295ecb11361139febe29b084a87bf005bf899f9a42edc3c6"
             ],
             "version": "==0.14"
+        },
+        "emoji": {
+            "hashes": [
+                "sha256:9ae01495fc3fcc04e9136ca1af8cae58726ec5dfaaa92f61f0732cbae9a12fa9",
+                "sha256:cecf8ed7cc535c999dc96e3fe7e7aacd176deb9ef62b3ef022c535e155084c44"
+            ],
+            "index": "pypi",
+            "version": "==0.5.2"
         },
         "gensim": {
             "hashes": [
@@ -309,10 +311,10 @@
         },
         "peewee": {
             "hashes": [
-                "sha256:92f5a20ff90d46f1f78e8d53d461061ef0ee192d7a7880efd41894b86fa4762d"
+                "sha256:f0249be468e3b119a8ad83f686e7fe161303197e0534e3cdff8fa5a5417c01a5"
             ],
             "index": "pypi",
-            "version": "==3.9.4"
+            "version": "==3.9.5"
         },
         "promise": {
             "hashes": [
@@ -436,9 +438,9 @@
         },
         "smart-open": {
             "hashes": [
-                "sha256:d3c16477ad7e8f94ab033630ea31993670ad21153172367db1acb143077d501c"
+                "sha256:305aee26b4fcc68f6ef8a8a851f27335b8b81bb9f2f030fd2574276cb4052b09"
             ],
-            "version": "==1.8.2"
+            "version": "==1.8.3"
         },
         "starlette": {
             "hashes": [
